@@ -68,3 +68,37 @@
 .resolved img {
  width: 100%;
 }
+
+#page-header {
+  height: 200px;
+  background-position: 0 -300px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  border-bottom: 1px #eee solid;
+}
+
+.about-header {
+  background: url('../img/image1.jpg');
+}
+
+.services-header {
+  background: url('../img/image2.jpg');
+}
+
+.about-img {
+  margin-top: -50px;
+}
+
+#faq .card {
+  border: #444;
+}
+
+#faq a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#faq .card-body,
+#faq .card-header {
+  background: #333;
+}
