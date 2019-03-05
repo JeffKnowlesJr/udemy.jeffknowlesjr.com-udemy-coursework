@@ -85,6 +85,14 @@
   background: url('../img/image2.jpg');
 }
 
+.blog-header {
+  background: url('../img/image3.jpg');
+}
+
+.contact-header {
+  background: url('../img/image2.jpg');
+}
+
 .about-img {
   margin-top: -50px;
 }
@@ -101,4 +109,9 @@
 #faq .card-body,
 #faq .card-header {
   background: #333;
+}
+
+#main-footer {
+  background-color: #000;
+  color: #fff;
 }
