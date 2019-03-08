@@ -1,0 +1,15 @@
+<textarea rows="6" [(ngModel)]="enteredValue"></textarea>
+<hr>
+<button (click)="onAddPost(postInput)">Save Post</button>
+
+<p>{{ newPost }}</p>
+<!-- Another option is two - way binding, which combines the setting and reading of a value [()] -->
+<!-- ngModel, an Angular directive, an instruction you place on an HTML element so angular knows WTD  -->
+<!-- Local refrence add a variable to any element you want #postInput -->
+<!-- Can be used here to pass data to onAddPost -->
+<!-- Event binding is an angular feature which lets us listen to events in a declarative way () -->
+<!-- String Interpolation, Property Binding, Event Binding, Two-Way Data Binding. -->
+<!-- String interpolation can refer to a property or method {{}} -->
+<!-- Property binding will target the property of the underlying object [] -->
+<!-- We will use a combination of string interpolation for simple text usually between opening and closing tags -->
+<!-- & Property binding always used directly on an element for outputting data in our template -->
