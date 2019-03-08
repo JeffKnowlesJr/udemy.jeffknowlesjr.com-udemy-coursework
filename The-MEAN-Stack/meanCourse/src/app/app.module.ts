@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 // You need to tell TS where the code can be found
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { from } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { from } from 'rxjs';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
