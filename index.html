@@ -10,17 +10,141 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
-  <title>Bootstrap Theme</title>
+  <title>Jeff Knowles Jr. | Udemy Projects</title>
 </head>
-
 <body>
-  <!-- START HERE -->
-<a href="/bootstrap/sandbox/2_2_basic_typography.html">Sandbox</a>
-<a href="/bootstrap/looplab/index.html">LoopLAB</a>
-<a href="/bootstrap/mizuxe/index.html">Mizuxe</a>
-<a href="/bootstrap/glozzom/index.html">Glozzom</a>
-<a href="/bootstrap/blogen/index.html">Blogen</a>
-<a href="/bootstrap/portfoliogrid/index.html">PortfolioGrid</a>
+
+    <!-- NAV -->
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <a href="http://udemy.jeffknowlesjr.com" class="navbar-brand">Udemy Projects</a>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4 py-2">Learning By Doing</h1>
+                <p class="lead py-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, ipsum corporis maxime ut perspiciatis voluptatem.</p>
+                <hr class="border my-2">
+                <p py-2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, quo.</p>
+                <button class="btn btn-primary btn-lg py-2">
+                    Read More
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CERTS -->
+    <section class="sticky-top d-none d-md-block p-5">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-6 col-lg-3 bg-danger pointer">
+                    <img src="img/bootstrap4-cert.jpg" alt="" class="img-fluid pointer"  data-toggle="collapse" data-target="#bootstrap" aria-expanded="true">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOBILE NAV -->
+    <nav class="sticky-top d-sm-block d-md-none">
+        <div class="container navbar navbar-light bg-light">
+            <ul class="navbar-nav">
+                <li class="navbar-item">
+                    <a href="#" class="navbar-link" data-toggle="collapse" data-target="#bootstrap" aria-expanded="true">Bootstrap 4</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Area -->
+    <section id="bootstrap" class="collapse show py-5 bg-primary">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/sandbox/" class="nav-link">
+                        <div class="card text-center text-light bg-info border border-light">
+                            <div class="card-header">
+                                <h4>Sandbox</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">This project demos all of Bootstrap 4's features.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/looplab/" class="nav-link">
+                        <div class="card text-center text-light bg-primary border border-light">
+                            <div class="card-header">
+                                <h4>LoopLAB</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">Simple product page with ScrollSpy and SmoothScroll.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/mizuxe/" class="nav-link">
+                        <div class="card text-center text-light bg-info border border-light">
+                            <div class="card-header">
+                                <h4>Muzuxe</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">Sample book page with Cards, Accordian, and Hero Overlay.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/glozzom/" class="nav-link">
+                        <div class="card text-center text-light bg-primary border border-light">
+                            <div class="card-header">
+                                <h4>Glozzom</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">Detailed product page with Carousel, Parallax, and Video.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/blogen
+                    /" class="nav-link">
+                        <div class="card text-center text-light bg-info border border-light">
+                            <div class="card-header">
+                                <h4>Blogen</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">Blog CMS back end with Tables, Modals, and Wizeewig Editor.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/sandbox/" class="nav-link">
+                        <div class="card text-center text-light bg-primary border border-light">
+                            <div class="card-header">
+                                <h4>PortfolioGrid</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">Single page portfolio with Collapse, Gallery, and Forms.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
