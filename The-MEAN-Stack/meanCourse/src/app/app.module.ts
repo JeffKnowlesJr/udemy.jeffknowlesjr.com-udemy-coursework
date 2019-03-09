@@ -1,24 +1,42 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+// NgModel is not included in the core and so it needs to be added here as formsmodule
 import { FormsModule } from '@angular/forms';
-// NgModel is not included in the core and so it needs to be added
+// Added by Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// Material Style imports
+import { MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatExpansionModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 // Typescript requirement if you use something in another file
 // You need to tell TS where the code can be found
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { from } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './header/header.component';
+import { PostListComponent } from './posts/post-list/post-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostCreateComponent
+    PostCreateComponent,
+    HeaderComponent,
+    PostListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

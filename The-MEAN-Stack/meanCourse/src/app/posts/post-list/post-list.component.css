@@ -1,0 +1,6 @@
+/* Special selector which targets the component element itself */
+/* All elements by default are not treated as block level elements */
+:host {
+  display: block;
+  margin-top: 2rem;
+}

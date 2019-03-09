@@ -1,2 +1,9 @@
-<h1>Our first App!</h1>
-<app-post-create></app-post-create>
+<app-header></app-header>
+<main>
+  <!-- To access the data we've emitted we need this $event -->
+  <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+  <app-post-list [posts]="storedPosts"></app-post-list>
+</main>
+
+<!-- We're listening to the (postCreated) event, we're adding the post from onPostAdded to storedPosts, and then we're passing down this list to post-list via [posts] -->
+<!-- Angular change detection? -->

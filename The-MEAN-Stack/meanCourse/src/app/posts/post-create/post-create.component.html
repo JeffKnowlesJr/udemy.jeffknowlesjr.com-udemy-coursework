@@ -1,8 +1,14 @@
-<textarea rows="6" [(ngModel)]="enteredValue"></textarea>
-<hr>
-<button (click)="onAddPost(postInput)">Save Post</button>
-
-<p>{{ newPost }}</p>
+<mat-card>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput type="text" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Post Content</mat-label>
+    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="onAddPost()">Save Post</button>
+</mat-card>
 <!-- Another option is two - way binding, which combines the setting and reading of a value [()] -->
 <!-- ngModel, an Angular directive, an instruction you place on an HTML element so angular knows WTD  -->
 <!-- Local refrence add a variable to any element you want #postInput -->

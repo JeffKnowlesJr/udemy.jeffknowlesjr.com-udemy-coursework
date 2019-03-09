@@ -1,0 +1,14 @@
+<!-- Multi="true" allows for multiple expansion panels to be open at once -->
+<!-- Special directive that determines if the element should be displayed -->
+<mat-accordion multi="true" *ngIf="posts.length > 0">
+  <!-- Structural Directives: Structurally change the HTML code -->
+  <!-- ngFor is a helper tool that lets you repeat an element as often as required -->
+  <!-- looping logic in "" -->
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      <p>{{ post.title }}</p>
+    </mat-expansion-panel-header>
+    <p>{{ post.content }}</p>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="mat-body-1" *ngIf="posts.length <= 0">No posts added yet!</p>
