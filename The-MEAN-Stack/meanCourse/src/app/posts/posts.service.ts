@@ -36,9 +36,15 @@ export class PostsService {
   }
 
   addPost(title: string, content: string) { // addPost(post: Post)
-    const post: Post = {id: null, title, content}; // title: title content: content
-    this.posts.push(post);
-    this.postUpdated.next([...this.posts]); // This emits a new value which is a copy of my postlist
+    const post: Post = {id: null, title: title, content: content}; // title, content // caused Assertion failed
+    // Optimistic updating, updating our local data before we have server side confirmation that it was updated
+    // We switched to asynch updating by moving our push and update within subscribe callback
+    this.http.post<{message: string}>('http://localhost:3000/api/posts', post).subscribe((responseData) => {
+      console.log(responseData.message);
+      this.posts.push(post);
+      this.postUpdated.next([...this.posts]); // This emits a new value which is a copy of my postlist
+    });
+
   }
 }
 

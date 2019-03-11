@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -11,6 +12,11 @@ const app = express();
 // app.use((req, res, next) => {
 //   res.send('Hello from express!');
 // });
+
+// must call bodyparser before we want to use it
+app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false}));
+
 
 // We need to manipulate the response because we want to add headers to it
 app.use((req, res, next) => {
@@ -28,7 +34,18 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/posts', (req, res, next) => {
+// npm install --save body-parser
+// POST
+app.post('/api/posts', (req, res, next) => {
+  const post = req.body;
+  console.log(post);
+  // 201 ok and resource added
+  res.status(201).json({
+    message: 'Post added Successfully'
+  });
+});
+
+app.get('/api/posts', (req, res, next) => {
   const posts = [
     {
       id: '230459',
