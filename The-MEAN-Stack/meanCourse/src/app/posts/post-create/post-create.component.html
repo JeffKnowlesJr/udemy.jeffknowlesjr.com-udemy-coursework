@@ -1,13 +1,20 @@
 <mat-card>
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput type="text" [(ngModel)]="enteredTitle">
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Post Content</mat-label>
-    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
-  </mat-form-field>
-  <button mat-raised-button color="accent" (click)="onAddPost()">Save Post</button>
+  <!-- This will prevent the default where the form will be sent to the server -->
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+    <!-- we need to get access to the values in the form and this can be done with the help of a local reference (#postForm), and then assign the value of ngForm as a directive implicitly added by angular to get access to the form object added behind the scenes -->
+    <!-- When angular detects a form element, with formsmodule applied, it will automatically created a javascript object behind the scenes that represents this form where we can easily register inputs as controls of which we can keep track. Where it will store the values of these controls, and where we can add validation to and submit the form  for use of it's values -->
+    <mat-form-field>
+        <!-- Angular will detect required and update form object validation -->
+        <input matInput type="text" name="title" placeholder="Post Title" ngModel required minlength="3" #title="ngModel">
+        <!-- <mat-error *ngIf="postForm.getControl('title').invalid" {{  }}></mat-error> -->
+        <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput rows="6" name="content" placeholder="Post Content" ngModel required minlength="3" #content="ngModel"></textarea>
+        <mat-error *ngIf="content.invalid">Please enter post content.</mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Save Post</button>
+  </form>
 </mat-card>
 <!-- Another option is two - way binding, which combines the setting and reading of a value [()] -->
 <!-- ngModel, an Angular directive, an instruction you place on an HTML element so angular knows WTD  -->
@@ -19,3 +26,13 @@
 <!-- Property binding will target the property of the underlying object [] -->
 <!-- We will use a combination of string interpolation for simple text usually between opening and closing tags -->
 <!-- & Property binding always used directly on an element for outputting data in our template -->
+<!-- REMOVED TWO WAY BINDING METHOD -->
+<!-- <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput type="text" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Post Content</mat-label>
+    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="onAddPost()">Save Post</button> -->
