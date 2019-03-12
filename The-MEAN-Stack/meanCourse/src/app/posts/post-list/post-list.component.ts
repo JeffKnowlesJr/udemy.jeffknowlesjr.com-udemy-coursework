@@ -40,6 +40,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     // The third will be called whenever the observable is completed
   }
 
+  onDelete(postId: string) {
+    this.postsService.deletePost(postId);
+  }
+
   // This will remove the subscription and prevent memory leaks
   ngOnDestroy() {
     this.postsSub.unsubscribe();

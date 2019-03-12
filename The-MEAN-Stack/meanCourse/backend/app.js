@@ -1,7 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
+
+const Post = require('./models/post');
+
+mongoose.connect('mongodb+srv://Admin:bZzkjKZa93HlfXw1@cluster0-cc33y.mongodb.net/postDB?retryWrites=true', { useNewUrlParser: true }).then(() => {
+  console.log('Conntected to database!');
+}).catch(() => {
+  console.log('Conntection failed!');
+});
 
 // redundant middleware, showing res is required
 // app.use((req, res, next) => {
@@ -37,31 +46,51 @@ app.use((req, res, next) => {
 // npm install --save body-parser
 // POST
 app.post('/api/posts', (req, res, next) => {
-  const post = req.body;
-  console.log(post);
-  // 201 ok and resource added
-  res.status(201).json({
-    message: 'Post added Successfully'
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content
   });
+  console.log(post);
+  // One cool amazing mongoose method
+  post.save().then(createdPost => {
+    res.status(201).json({
+      message: 'Post added Successfully',
+      postId: createdPost._id
+    });
+  });
+  // 201 ok and resource added
 });
 
 app.get('/api/posts', (req, res, next) => {
-  const posts = [
-    {
-      id: '230459',
-      title: 'First server-side post',
-      content: 'This is coming form the server.'
-    },
-    {
-      id: '132464',
-      title: 'Second server-side post',
-      content: 'This is also coming form the server!!!'
-    }
-  ]
+  // const posts = [
+  //   {
+  //     id: '230459',
+  //     title: 'First server-side post',
+  //     content: 'This is coming form the server.'
+  //   },
+  //   {
+  //     id: '132464',
+  //     title: 'Second server-side post',
+  //     content: 'This is also coming form the server!!!'
+  //   }
+  // ]
   // res.json(posts);
-  res.status(200).json({
-    message: 'Posts fetched successfully!',
-    posts: posts
+  // find is a static method provided to the model by Mongoose
+  Post.find().then(documents => {
+    console.log(documents);
+    posts = documents;
+    res.status(200).json({
+      message: 'Posts fetched successfully!',
+      posts: posts
+    });
+  });
+});
+
+// Dynamic path segment
+app.delete('/api/posts/:id', (req, res, next) => {
+  Post.deleteOne({_id: req.params.id}).then(result => {
+    console.log(result);
+    res.status(200).json({message: 'Post deleted!'});
   });
 });
 
