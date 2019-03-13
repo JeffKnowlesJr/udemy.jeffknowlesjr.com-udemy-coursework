@@ -1,16 +1,22 @@
 <mat-card>
   <!-- This will prevent the default where the form will be sent to the server -->
-  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm">
     <!-- we need to get access to the values in the form and this can be done with the help of a local reference (#postForm), and then assign the value of ngForm as a directive implicitly added by angular to get access to the form object added behind the scenes -->
     <!-- When angular detects a form element, with formsmodule applied, it will automatically created a javascript object behind the scenes that represents this form where we can easily register inputs as controls of which we can keep track. Where it will store the values of these controls, and where we can add validation to and submit the form  for use of it's values -->
     <mat-form-field>
         <!-- Angular will detect required and update form object validation -->
-        <input matInput type="text" name="title" placeholder="Post Title" ngModel required minlength="3" #title="ngModel">
+        <input matInput type="text" name="title" placeholder="Post Title" [ngModel]="post?.title" required minlength="3" #title="ngModel">
+        <!-- because this http request takes some time to be executed.
+However post initially is undefined and we try to read a value from it here with ngModel
+right from the start, this can be fixed by using the so-called elvis operator. In the template,
+add a questionmark after post and this will force angular to check whether post exists before it
+tries to read the title and it will populate this field with nothing
+if the post does not exist and the same down there for the content.  -->
         <!-- <mat-error *ngIf="postForm.getControl('title').invalid" {{  }}></mat-error> -->
         <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <textarea matInput rows="6" name="content" placeholder="Post Content" ngModel required minlength="3" #content="ngModel"></textarea>
+        <textarea matInput rows="6" name="content" placeholder="Post Content" [ngModel]="post?.content" required minlength="3" #content="ngModel"></textarea>
         <mat-error *ngIf="content.invalid">Please enter post content.</mat-error>
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Save Post</button>

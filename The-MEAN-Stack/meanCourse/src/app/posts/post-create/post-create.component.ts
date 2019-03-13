@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // To emit our own event we need a feature EventEmitter
 // import { Post } from '../post.model';
 import { NgForm } from '@angular/forms';
 import { PostsService } from '../posts.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Post } from '../post.model';
 
 // Create a typescript component class
 // Turn in into a component that Angular understands by using a Decorator
@@ -15,11 +17,14 @@ import { PostsService } from '../posts.service';
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.css']
 })
-export class PostCreateComponent {
+export class PostCreateComponent implements OnInit {
   enteredTitle = '';
   enteredContent = '';
+  post: Post;
+  private mode = 'create';
+  private postId: string;
 
-  constructor(public postsService: PostsService) {}
+  constructor(public postsService: PostsService, public route: ActivatedRoute) {}
 
   // <> defines the generic type to emit
   // @Output() postCreated = new EventEmitter<Post>();
@@ -29,7 +34,7 @@ export class PostCreateComponent {
 
   // onaddPost(postInput: HTMLTextAreaElement) {
   // form of type ngForm
-  onAddPost(form: NgForm) {
+  onSavePost(form: NgForm) {
     if (form.invalid) {
       return;
     }
@@ -44,13 +49,32 @@ export class PostCreateComponent {
     // }; Removed two way binding method
     // now we can call this method taking post as arguement
     // this.postCreated.emit(post);
-    this.postsService.addPost(form.value.title, form.value.content);
+    if (this.mode == 'create') {
+      this.postsService.addPost(form.value.title, form.value.content);
+    } else {
+      this.postsService.updatePost(this.postId, form.value.title, form.value.content);
+    }
+
     // console.dir(postInput);
     // Using dot notation to access the value property of post Input
     // this.newPost = this.enteredValue;
     form.resetForm();
   }
 
-
+  ngOnInit() {
+    // the paramap is an observable, and the paramroute could change while we're on the page
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('postId')) {
+        this.mode = 'edit';
+        this.postId = paramMap.get('postId');
+        this.postsService.getPost(this.postId).subscribe(postData => {
+          this.post = {id: postData._id, title: postData.title, content: postData.content};
+        });
+      } else {
+        this.mode = 'create';
+        this.postId = null;
+      }
+    }); // listen to changes in the route url
+  }
 
 }

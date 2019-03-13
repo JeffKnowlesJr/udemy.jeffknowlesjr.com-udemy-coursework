@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { PortalHostDirective } from '@angular/cdk/portal';
+import { stringify } from '@angular/core/src/util';
 // Subject is essentially an event emitter although for broader usage than the angular one
 
 @Injectable({providedIn: 'root'})// Can be done as an alternative to module providers
@@ -50,6 +52,20 @@ export class PostsService {
     return this.postUpdated.asObservable(); // Special method which allows for others to listen
   }
 
+//   Now we will have one problem though, right now
+// get post returns a post,
+// well it will not be able to do that anymore because if we make a http call here, that'll be an asynchronous
+// code and you can't return inside of a subscription,
+// you need to return synchronously,
+// so that means you can't return in a place which will run sometime in the future.
+// So what I'll do here instead is
+// I will still return something but I will return the observable we're getting from the angular http
+// client so that we can subscribe in the component where we are interested in that data.
+  getPost(id: string) {
+    return this.http.get<{_id: string, title: string, content: string}>('http://localhost:3000/api/posts/' + id);
+  }
+  // so send that get request there and return the result of this get request which is our observable.
+
   addPost(title: string, content: string) { // addPost(post: Post)
     const post: Post = {id: null, title: title, content: content}; // title, content // caused Assertion failed
     // Optimistic updating, updating our local data before we have server side confirmation that it was updated
@@ -64,6 +80,22 @@ export class PostsService {
       // we could call getPosts but it's somewhat redundant
     });
   }
+
+  updatePost(id: string, title: string, content: string) {
+    const post: Post = { id: id, title: title, content: content};
+    this.http
+      .put('http://localhost:3000/api/posts/' + id, post)
+      .subscribe(response => {
+        const updatedPosts = [...this.posts];
+        const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+        updatedPosts[oldPostIndex] = post;
+        this.posts = updatedPosts;
+        this.postUpdated.next([...this.posts]);
+      });
+  }
+//   Of course we will have a payload here though,
+// put requests take a payload,
+// the post which we want to use and post ID is just ID here, like this.
 
   deletePost(postId: string) {
     this.http.delete('http://localhost:3000/api/posts/' + postId)

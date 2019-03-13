@@ -37,11 +37,25 @@ app.use((req, res, next) => {
     // The incoming request may have these additional headers
     // If it has another non-default besides those lists, will be be blocked
   res.setHeader('Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS'
+    'GET, POST, PUT, PATCH, DELETE, OPTIONS'
     // OPTIONS WILL IMPLICITLY BE SENT TO TEST BEFORE OTHER REQS
     );
   next();
 });
+
+// patcch is for editting only some of the obj
+app.put('/api/posts/:id', (req, res, next) => {
+  const post = new Post({
+    _id: req.body.id,
+    title: req.body.title,
+    content: req.body.content
+  });
+  Post.updateOne({_id: req.params.id}, post).then(result => {
+    console.log(result);
+    res.status(200).json({message: 'Update successful!'});
+  });
+});
+
 
 // npm install --save body-parser
 // POST
@@ -59,6 +73,16 @@ app.post('/api/posts', (req, res, next) => {
     });
   });
   // 201 ok and resource added
+});
+
+app.get('/api/posts/:id', (req, res, next) => {
+  Post.findById(req.params.id).then(post => {
+    if (post) {
+      res.status(200).json(post);
+    } else {
+      res.status(404).json({message: 'Post not found!'});
+    }
+  });
 });
 
 app.get('/api/posts', (req, res, next) => {
