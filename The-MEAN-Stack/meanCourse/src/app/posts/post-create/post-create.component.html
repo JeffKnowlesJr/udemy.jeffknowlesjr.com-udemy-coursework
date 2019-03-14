@@ -1,6 +1,7 @@
 <mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
   <!-- This will prevent the default where the form will be sent to the server -->
-  <form (submit)="onSavePost(postForm)" #postForm="ngForm">
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
     <!-- we need to get access to the values in the form and this can be done with the help of a local reference (#postForm), and then assign the value of ngForm as a directive implicitly added by angular to get access to the form object added behind the scenes -->
     <!-- When angular detects a form element, with formsmodule applied, it will automatically created a javascript object behind the scenes that represents this form where we can easily register inputs as controls of which we can keep track. Where it will store the values of these controls, and where we can add validation to and submit the form  for use of it's values -->
     <mat-form-field>

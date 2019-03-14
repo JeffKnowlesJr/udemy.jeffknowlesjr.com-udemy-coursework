@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { PortalHostDirective } from '@angular/cdk/portal';
-import { stringify } from '@angular/core/src/util';
+import { Router } from '@angular/router';
 // Subject is essentially an event emitter although for broader usage than the angular one
 
 @Injectable({providedIn: 'root'})// Can be done as an alternative to module providers
 export class PostsService {
 
-  constructor(private http: HttpClient ) {}
+  constructor(private http: HttpClient, private router: Router ) {}
 
   private posts: Post[] = [];
 // reference type
@@ -78,6 +77,7 @@ export class PostsService {
       this.posts.push(post);
       this.postUpdated.next([...this.posts]); // This emits a new value which is a copy of my postlist
       // we could call getPosts but it's somewhat redundant
+      this.router.navigate(['/']);
     });
   }
 
@@ -91,6 +91,7 @@ export class PostsService {
         updatedPosts[oldPostIndex] = post;
         this.posts = updatedPosts;
         this.postUpdated.next([...this.posts]);
+        this.router.navigate(['/']);
       });
   }
 //   Of course we will have a payload here though,

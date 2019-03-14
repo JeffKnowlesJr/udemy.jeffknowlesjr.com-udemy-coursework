@@ -4,3 +4,7 @@
   display: block;
   margin-top: 2rem;
 }
+
+mat-spinner {
+  margin: auto;
+}
