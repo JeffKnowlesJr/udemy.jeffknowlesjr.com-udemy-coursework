@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from '../post.model';
+import { mimeType } from './mime-type.validator';
 
 // Create a typescript component class
 // Turn in into a component that Angular understands by using a Decorator
@@ -24,6 +25,7 @@ export class PostCreateComponent implements OnInit {
   post: Post;
   private mode = 'create';
   private postId: string;
+  imagePreview: string;
   isLoading = false;
   form: FormGroup;
   // now we create and store our form programmatically
@@ -76,8 +78,16 @@ export class PostCreateComponent implements OnInit {
     // so this is no text, this is a file object,
     // you are not limited to storing text in your form,
     this.form.get('image').updateValueAndValidity();
-    console.log(file);
-    console.log(this.form);
+    // console.log(file);
+    // console.log(this.form);
+    // this in onImagePicked, I want to convert my image to a so-called dataURL
+    console.log('imagePreview', this.imagePreview);
+    const reader = new FileReader();
+    reader.onload = () => {
+      console.log(reader.result);
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   ngOnInit() {
@@ -90,7 +100,7 @@ export class PostCreateComponent implements OnInit {
       'content': new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)], updateOn: 'blur'
       }),
-      'image': new FormControl(null, {validators: [Validators.required]})
+      'image': new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeType]})
     });
 
     // the paramap is an observable, and the paramroute could change while we're on the page
