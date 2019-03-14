@@ -40,7 +40,7 @@ export class PostCreateComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    //Add Spinner
+    // Add Spinner
     // const post: Post = {
     //   title: form.value.title,
     //   content: form.value.content
@@ -51,7 +51,7 @@ export class PostCreateComponent implements OnInit {
     // }; Removed two way binding method
     // now we can call this method taking post as arguement
     // this.postCreated.emit(post);
-    if (this.mode == 'create') {
+    if (this.mode === 'create') {
       this.postsService.addPost(form.value.title, form.value.content);
     } else {
       this.postsService.updatePost(this.postId, form.value.title, form.value.content);
@@ -70,9 +70,9 @@ export class PostCreateComponent implements OnInit {
         this.mode = 'edit';
         this.postId = paramMap.get('postId');
         this.isLoading = true;
-        //Add Spinner
+        // Add Spinner
         this.postsService.getPost(this.postId).subscribe(postData => {
-          //Hide Spinner
+          // Hide Spinner
           this.isLoading = false;
           this.post = {id: postData._id, title: postData.title, content: postData.content};
         });

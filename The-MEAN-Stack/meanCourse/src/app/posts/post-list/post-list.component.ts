@@ -27,7 +27,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   // for basic initialization tasks
   ngOnInit() {
     this.isLoading = true;
-    //Add Spinner
+    // Add Spinner
     this.postsService.getPosts(); // Fetching our posts
     // postsSub below is an important module to make use of to
     //  prevent subscriptions from persisting after the method is no longer needed on the DOM
@@ -36,7 +36,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       (posts: Post[]) => {
         this.posts = posts;
         this.isLoading = false;
-        //hide Spinner
+        // hide Spinner
       }
     );
     // Subscribe sets up a subscription and takes three possible arguments
