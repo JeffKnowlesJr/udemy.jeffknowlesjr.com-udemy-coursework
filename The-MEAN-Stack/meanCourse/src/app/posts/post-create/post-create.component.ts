@@ -57,7 +57,7 @@ export class PostCreateComponent implements OnInit {
     // now we can call this method taking post as arguement
     // this.postCreated.emit(post);
     if (this.mode === 'create') {
-      this.postsService.addPost(this.form.value.title, this.form.value.content);
+      this.postsService.addPost(this.form.value.title, this.form.value.content, this.form.value.image);
     } else {
       this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content);
     }
@@ -116,7 +116,8 @@ export class PostCreateComponent implements OnInit {
           this.post = {
             id: postData._id,
             title: postData.title,
-            content: postData.content
+            content: postData.content,
+            imagePath: null
           };
           // Set value allows you to override the values for your form controls you registered here,
           // so you pass a Javascript object here and you need to set a value for every form control.

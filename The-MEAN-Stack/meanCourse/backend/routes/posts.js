@@ -1,6 +1,28 @@
 const express = require('express');
 const Post = require('../models/post');
 const router = express.Router();
+const multer = require('multer');
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+};
+
+const storage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error('Invalid mime type');
+    if (isValid) {
+      error = null;
+    }
+    callBack(error, 'backend/images'); // relative to server.js folder
+  },
+  filename: (req, file, callBack) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    callBack(null, name + '-' + Date.now() + '.' + ext);
+  }
+});
 
 
 // patcch is for editting only some of the obj
@@ -19,17 +41,26 @@ router.put('/:id', (req, res, next) => {
 
 // npm install --save body-parser
 // POST
-router.post('', (req, res, next) => {
+router.post('', multer({storage: storage}).single('image'), (req, res, next) => {
+  const url = req.protocol + '://' + req.get('host');
   const post = new Post({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    imagePath: url + '/images/' + req.file.filename
   });
   console.log(post);
   // One cool amazing mongoose method
   post.save().then(createdPost => {
     res.status(201).json({
       message: 'Post added Successfully',
-      postId: createdPost._id
+      post: {
+        // ...createdPost, // We were warned about possible complications with
+        // id:createdPost._id // using this feature and Mongoose, check it out
+        id: createdPost._id,
+        title: createdPost.title,
+        content: createdPost.content,
+        imagePath: createdPost.imagePath
+      }
     });
   });
   // 201 ok and resource added

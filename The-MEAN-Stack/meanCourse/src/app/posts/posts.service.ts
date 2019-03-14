@@ -32,7 +32,8 @@ export class PostsService {
           return {
             title: post.title,
             content: post.content,
-            id: post._id
+            id: post._id,
+            imagePath: post.imagePath
           };
         }); // normal javascript map to change the data within an array
       }))
@@ -61,17 +62,27 @@ export class PostsService {
 // I will still return something but I will return the observable we're getting from the angular http
 // client so that we can subscribe in the component where we are interested in that data.
   getPost(id: string) {
-    return this.http.get<{_id: string, title: string, content: string}>('http://localhost:3000/api/posts/' + id);
+    return this.http.get<{_id: string, title: string, content: string, imagePath: string}>('http://localhost:3000/api/posts/' + id);
   }
   // so send that get request there and return the result of this get request which is our observable.
 
-  addPost(title: string, content: string) { // addPost(post: Post)
-    const post: Post = {id: null, title: title, content: content}; // title, content // caused Assertion failed
+  addPost(title: string, content: string, image: File) { // addPost(post: Post)
+    // const post: Post = {id: null, title: title, content: content}; // title, content // caused Assertion failed
+    const postData = new FormData();
+    postData.append('title', title);
+    postData.append('content', content);
+    postData.append('image', image, title);
     // Optimistic updating, updating our local data before we have server side confirmation that it was updated
     // We switched to asynch updating by moving our push and update within subscribe callback
-    this.http.post<{message: string, postId: string}>('http://localhost:3000/api/posts', post).subscribe((responseData) => {
+    this.http.post<{message: string, post: Post}>('http://localhost:3000/api/posts', postData).subscribe((responseData) => {
+      const post: Post = {
+        id: responseData.post.id,
+        title: title,
+        content: content,
+        imagePath: responseData.post.imagePath
+      };
       console.log(responseData.message);
-      const id = responseData.postId;
+      const id = responseData.post.id;
       post.id = id;
       // We can edit const post because we aren't changing the reference value but rather the property value of the object
       this.posts.push(post);
@@ -82,7 +93,7 @@ export class PostsService {
   }
 
   updatePost(id: string, title: string, content: string) {
-    const post: Post = { id: id, title: title, content: content};
+    const post: Post = { id: id, title: title, content: content, imagePath: null};
     this.http
       .put('http://localhost:3000/api/posts/' + id, post)
       .subscribe(response => {

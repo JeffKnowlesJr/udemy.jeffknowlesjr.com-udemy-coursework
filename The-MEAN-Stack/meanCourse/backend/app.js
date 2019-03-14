@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const postsRoutes = require('./routes/posts');
+const path = require('path');
 
 const app = express();
 
@@ -25,6 +26,8 @@ mongoose.connect('mongodb+srv://Admin:bZzkjKZa93HlfXw1@cluster0-cc33y.mongodb.ne
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false}));
 
+// Middleware
+app.use('/images', express.static(path.join('backend/images')));
 
 // We need to manipulate the response because we want to add headers to it
 app.use((req, res, next) => {
@@ -41,6 +44,7 @@ app.use((req, res, next) => {
     );
   next();
 });
+
 
 app.use('/api/posts', postsRoutes);
 

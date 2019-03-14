@@ -7,9 +7,16 @@
   <!-- looping logic in "" -->
   <mat-expansion-panel *ngFor="let post of posts">
     <mat-expansion-panel-header>
-      <p>{{ post.title }}</p>
+      <mat-card-title>{{ post.title }}</mat-card-title>
     </mat-expansion-panel-header>
-    <p>{{ post.content }}</p>
+    <div class="row">
+      <div class="col-md-6">
+        <img class="img-fluid shadowed" [src]="post.imagePath" [alt]="post.title">
+      </div>
+      <div class="col-md-6">
+        <p class="pl-md-5">{{ post.content }}</p>
+      </div>
+    </div>
     <mat-action-row>
       <a mat-button color="primary" [routerLink]="['edit/', post.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>

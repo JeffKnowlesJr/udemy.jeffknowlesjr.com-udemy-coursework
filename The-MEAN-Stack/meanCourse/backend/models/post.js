@@ -4,7 +4,8 @@ const postSchema = mongoose.Schema({
 // typescript lowercase s, Node.js and Javascript uppercase S
   // title: String
   title: { type: String, required: true },
-  content: { type: String, required: true}
+  content: { type: String, required: true},
+  imagePath: { type: String, required: true}
   // Mongoose documentation available for Schema types
 });
 
