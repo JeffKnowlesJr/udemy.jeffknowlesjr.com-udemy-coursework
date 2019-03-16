@@ -84,6 +84,16 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.get('', (req, res, next) => {
+  // + converts to numbers
+  const pageSize = +req.query.pagesize;
+  const currrentPage = +req.query.page;
+  const postQuery = Post.find();
+  if (pageSize && currrentPage) {
+    postQuery
+      .skip(pageSize * (currrentPage - 1))
+      .limit(pageSize);
+      // Still runs on all items in DB
+  }
   // const posts = [
   //   {
   //     id: '230459',
@@ -98,7 +108,7 @@ router.get('', (req, res, next) => {
   // ]
   // res.json(posts);
   // find is a static method provided to the model by Mongoose
-  Post.find().then(documents => {
+  postQuery.then(documents => {
     console.log(documents);
     posts = documents;
     res.status(200).json({

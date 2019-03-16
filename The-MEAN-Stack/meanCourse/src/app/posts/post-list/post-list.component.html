@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <!-- Multi="true" allows for multiple expansion panels to be open at once -->
 <!-- Special directive that determines if the element should be displayed -->
-<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+<mat-accordion class="d-block" multi="true" *ngIf="posts.length > 0 && !isLoading">
   <!-- Structural Directives: Structurally change the HTML code -->
   <!-- ngFor is a helper tool that lets you repeat an element as often as required -->
   <!-- looping logic in "" -->
@@ -23,4 +23,5 @@
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
+<mat-paginator class="d-block mt-3" [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"></mat-paginator>
 <p class="mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
