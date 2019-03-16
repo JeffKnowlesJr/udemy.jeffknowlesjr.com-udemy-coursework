@@ -21,8 +21,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   private postsSub: Subscription;
   isLoading = false;
-  totalPosts = 10;
+  totalPosts = 0;
   postsPerPage = 2;
+  currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
 
   constructor(public postsService: PostsService) { } // Automatically creates a new property
@@ -32,13 +33,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     // Add Spinner
-    this.postsService.getPosts(); // Fetching our posts
+    this.postsService.getPosts(this.postsPerPage, this.currentPage); // Fetching our posts
     // postsSub below is an important module to make use of to
     //  prevent subscriptions from persisting after the method is no longer needed on the DOM
     // required to prevent memory leakage
     this.postsSub = this.postsService.getPostUpdateListener().subscribe(
-      (posts: Post[]) => {
-        this.posts = posts;
+      (postData: {posts: Post[], postCount: number}) => {
+        this.posts = postData.posts;
+        this.totalPosts = postData.postCount;
         this.isLoading = false;
         // hide Spinner
       }
@@ -50,11 +52,17 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   onChangedPage(pageData: PageEvent) {
-    console.log(pageData);
+    this.isLoading = true;
+    this.currentPage = pageData.pageIndex + 1;
+    this.postsPerPage = pageData.pageSize;
+    this.postsService.getPosts(this.postsPerPage, this.currentPage)
   }
 
   onDelete(postId: string) {
-    this.postsService.deletePost(postId);
+    this.isLoading = true;
+    this.postsService.deletePost(postId).subscribe(() => {
+      this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    });
   }
 
   // This will remove the subscription and prevent memory leaks

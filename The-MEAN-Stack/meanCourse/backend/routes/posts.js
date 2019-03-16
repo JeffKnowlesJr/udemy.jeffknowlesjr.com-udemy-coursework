@@ -88,6 +88,7 @@ router.get('', (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currrentPage = +req.query.page;
   const postQuery = Post.find();
+  let fetchedPosts;
   if (pageSize && currrentPage) {
     postQuery
       .skip(pageSize * (currrentPage - 1))
@@ -108,14 +109,24 @@ router.get('', (req, res, next) => {
   // ]
   // res.json(posts);
   // find is a static method provided to the model by Mongoose
-  postQuery.then(documents => {
-    console.log(documents);
-    posts = documents;
-    res.status(200).json({
+  postQuery
+    .then(documents => {
+      fetchedPosts = documents;
+    // console.log(documents);
+    // posts = documents;
+    // res.status(200).json({
+    //   message: 'Posts fetched successfully!',
+    //   posts: posts
+    // });
+      return Post.count();
+    })
+    .then(count => {
+      res.status(200).json({
       message: 'Posts fetched successfully!',
-      posts: posts
+      posts: fetchedPosts,
+      maxPosts: count
+      });
     });
-  });
 });
 
 // Dynamic path segment
