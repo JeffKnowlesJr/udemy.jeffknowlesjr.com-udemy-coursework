@@ -2,6 +2,8 @@ const express = require('express');
 const Post = require('../models/post');
 const router = express.Router();
 const multer = require('multer');
+const checkAuth = require('../middleware/check-auth');
+
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -26,7 +28,7 @@ const storage = multer.diskStorage({
 
 
 // patcch is for editting only some of the obj
-router.put('/:id', multer({storage: storage}).single('image'), (req, res, next) => {
+router.put('/:id', checkAuth, multer({storage: storage}).single('image'), (req, res, next) => {
   console.log(req.file);
   let imagePath = req.body.imagePath;
   if (req.file) {
@@ -48,7 +50,7 @@ router.put('/:id', multer({storage: storage}).single('image'), (req, res, next) 
 
 // npm install --save body-parser
 // POST
-router.post('', multer({storage: storage}).single('image'), (req, res, next) => {
+router.post('', checkAuth, multer({storage: storage}).single('image'), (req, res, next) => {
   const url = req.protocol + '://' + req.get('host');
   const post = new Post({
     title: req.body.title,
@@ -130,7 +132,7 @@ router.get('', (req, res, next) => {
 });
 
 // Dynamic path segment
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
   Post.deleteOne({_id: req.params.id}).then(result => {
     console.log(result);
     res.status(200).json({message: 'Post deleted!'});

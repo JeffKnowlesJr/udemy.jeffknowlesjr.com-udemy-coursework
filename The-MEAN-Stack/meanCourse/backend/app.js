@@ -35,7 +35,7 @@ app.use((req, res, next) => {
   // the first argument is the key and the second the value
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     );
     // The incoming request may have these additional headers
     // If it has another non-default besides those lists, will be be blocked
