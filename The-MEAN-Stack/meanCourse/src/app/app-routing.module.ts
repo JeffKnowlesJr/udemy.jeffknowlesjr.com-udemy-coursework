@@ -4,14 +4,15 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthGuard } from './auth/auth.guard';
 
 // Well routes are simply javascript objects here where we define for which url,
 // which part of our app should be presented.
 
 const routes: Routes = [
   { path: '', component: PostListComponent },
-  { path: 'create', component: PostCreateComponent },
-  { path: 'edit/:postId', component: PostCreateComponent },
+  { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent }
 ];
@@ -22,8 +23,13 @@ const routes: Routes = [
 // This takes our root route config, so the routes constant we define here here.
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
+
+// whilst you should rarely provide services in that special module, guards are perfectly fine
+// to be provided there,
+
 export class AppRoutingModule { }
 // Now this will become an angular module
 // and in case you don't know, angular modules are basically building blocks angular analyzes to find out
