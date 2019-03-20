@@ -24,6 +24,6 @@
           required>
         <mat-error *ngIf="passwordInput.invalid">Please enter the correct password for your account.</mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Signup</button>
+      <button *ngIf="!isLoading" mat-raised-button color="primary" type="submit">Signup</button>
   </form>
 </mat-card>

@@ -4,6 +4,7 @@ import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-post-list',
@@ -19,14 +20,16 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   // @Input() posts: Post[] = [];
   posts: Post[] = [];
-  private postsSub: Subscription;
   isLoading = false;
   totalPosts = 0;
   postsPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
+  userIsAuthenticated = false;
+  private postsSub: Subscription;
+  private authStatusSub: Subscription;
 
-  constructor(public postsService: PostsService) { } // Automatically creates a new property
+  constructor(public postsService: PostsService, private authService: AuthService) { } // Automatically creates a new property
 
   // implemented life cycle hook
   // for basic initialization tasks
@@ -45,6 +48,12 @@ export class PostListComponent implements OnInit, OnDestroy {
         // hide Spinner
       }
     );
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
     // Subscribe sets up a subscription and takes three possible arguments
     // first is a function that is executed whenever new data is emitted
     // the second will be called whenever an error is emitted
@@ -68,6 +77,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   // This will remove the subscription and prevent memory leaks
   ngOnDestroy() {
     this.postsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }
