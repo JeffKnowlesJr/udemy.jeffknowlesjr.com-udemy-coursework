@@ -26,6 +26,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
+  userId: string;
   private postsSub: Subscription;
   private authStatusSub: Subscription;
 
@@ -40,6 +41,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     // postsSub below is an important module to make use of to
     //  prevent subscriptions from persisting after the method is no longer needed on the DOM
     // required to prevent memory leakage
+    this.userId = this.authService.getUserId();
     this.postsSub = this.postsService.getPostUpdateListener().subscribe(
       (postData: {posts: Post[], postCount: number}) => {
         this.posts = postData.posts;
@@ -53,6 +55,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
       });
     // Subscribe sets up a subscription and takes three possible arguments
     // first is a function that is executed whenever new data is emitted

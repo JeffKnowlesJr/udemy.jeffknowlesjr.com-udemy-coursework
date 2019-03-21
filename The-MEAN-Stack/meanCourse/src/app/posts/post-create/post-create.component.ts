@@ -7,6 +7,7 @@ import { PostsService } from '../posts.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from '../post.model';
 import { mimeType } from './mime-type.validator';
+import { post } from 'selenium-webdriver/http';
 
 // Create a typescript component class
 // Turn in into a component that Angular understands by using a Decorator
@@ -121,7 +122,8 @@ export class PostCreateComponent implements OnInit {
             id: postData._id,
             title: postData.title,
             content: postData.content,
-            imagePath: postData.imagePath
+            imagePath: postData.imagePath,
+            creator: postData.creator
           };
           // Set value allows you to override the values for your form controls you registered here,
           // so you pass a Javascript object here and you need to set a value for every form control.
