@@ -76,7 +76,7 @@ export class PostsService {
         }>('http://localhost:3000/api/posts' + queryParams)
       .pipe(
         map((postData) => {
-          return {posts: postData.posts.map(post => {
+          return {posts: postData.posts.map( post => {
             return {
               title: post.title,
               content: post.content,

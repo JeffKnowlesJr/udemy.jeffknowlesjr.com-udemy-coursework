@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { stringify } from '@angular/core/src/util';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
@@ -21,10 +20,16 @@ export class AuthService {
 
   createUser(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
-    this.http.post('http://localhost:3000/api/user/signup', authData)
-      .subscribe(response => {
-        console.log(response);
+    this.http
+      .post('http://localhost:3000/api/user/signup', authData)
+      .subscribe(data => {
+        console.log('response data' + data);
       });
+      // .subscribe(() => {
+      //   this.router.navigate['/'];
+      // }, error => {
+      //   this.authStatusListener.next(false);
+      // });
   }
 
   getIsAuth() {
