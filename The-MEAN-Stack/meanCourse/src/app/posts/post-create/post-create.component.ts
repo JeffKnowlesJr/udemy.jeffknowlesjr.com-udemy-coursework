@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 // To emit our own event we need a feature EventEmitter
 // import { Post } from '../post.model';
 // NgForm,
+import { AuthService } from '../../auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from '../post.model';
 import { mimeType } from './mime-type.validator';
 import { post } from 'selenium-webdriver/http';
+import { Subscription } from 'rxjs';
 
 // Create a typescript component class
 // Turn in into a component that Angular understands by using a Decorator
@@ -20,7 +22,7 @@ import { post } from 'selenium-webdriver/http';
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.css']
 })
-export class PostCreateComponent implements OnInit {
+export class PostCreateComponent implements OnInit, OnDestroy {
   enteredTitle = '';
   enteredContent = '';
   post: Post;
@@ -29,9 +31,10 @@ export class PostCreateComponent implements OnInit {
   imagePreview: string;
   isLoading = false;
   form: FormGroup;
+  private authStatusSub: Subscription;
   // now we create and store our form programmatically
 
-  constructor(public postsService: PostsService, public route: ActivatedRoute) {}
+  constructor(public postsService: PostsService, public route: ActivatedRoute, private authService: AuthService) {}
 
   // <> defines the generic type to emit
   // @Output() postCreated = new EventEmitter<Post>();
@@ -96,6 +99,11 @@ export class PostCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(authStatus => {
+        this.isLoading = false;
+      });
     // initializing our form
     this.form = new FormGroup({
       // form control takes a couple of arguments
@@ -138,6 +146,10 @@ export class PostCreateComponent implements OnInit {
         this.postId = null;
       }
     }); // listen to changes in the route url
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
 }

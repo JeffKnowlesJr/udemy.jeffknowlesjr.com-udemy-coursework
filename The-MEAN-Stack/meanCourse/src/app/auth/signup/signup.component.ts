@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-
   isloading = false;
   private authStatusSub: Subscription;
 

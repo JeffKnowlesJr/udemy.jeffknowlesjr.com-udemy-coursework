@@ -22,11 +22,13 @@ export class AuthService {
     const authData: AuthData = {email: email, password: password};
     this.http
       .post('http://localhost:3000/api/user/signup', authData)
-      .subscribe(data => {
-        console.log('response data' + data);
+      .subscribe(() => {
+        this.router.navigate(['/']);
+      }, error => {
+        this.authStatusListener.next(false);
       });
       // .subscribe(() => {
-      //   this.router.navigate['/'];
+      //   this.router.navigate['/']; ** error caused here by missing PARENS
       // }, error => {
       //   this.authStatusListener.next(false);
       // });
@@ -62,7 +64,9 @@ export class AuthService {
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }
-      })
+      }, error => {
+        this.authStatusListener.next(false);
+      });
   }
 
   autoAuthUser() {
