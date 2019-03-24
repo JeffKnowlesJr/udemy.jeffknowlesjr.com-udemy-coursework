@@ -1,0 +1,84 @@
+<!-- <mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+  <!-- This will prevent the default where the form will be sent to the server -->
+  <!-- <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading"> -->
+    <!-- we need to get access to the values in the form and this can be done with the help of a local reference (#postForm), and then assign the value of ngForm as a directive implicitly added by angular to get access to the form object added behind the scenes -->
+    <!-- When angular detects a form element, with formsmodule applied, it will automatically created a javascript object behind the scenes that represents this form where we can easily register inputs as controls of which we can keep track. Where it will store the values of these controls, and where we can add validation to and submit the form  for use of it's values -->
+    <!-- <mat-form-field> -->
+        <!-- Angular will detect required and update form object validation -->
+        <!-- <input matInput type="text" name="title" placeholder="Post Title" [ngModel]="post?.title" required minlength="3" #title="ngModel"> -->
+        <!-- because this http request takes some time to be executed.
+However post initially is undefined and we try to read a value from it here with ngModel
+right from the start, this can be fixed by using the so-called elvis operator. In the template,
+add a questionmark after post and this will force angular to check whether post exists before it
+tries to read the title and it will populate this field with nothing
+if the post does not exist and the same down there for the content.  -->
+        <!-- <mat-error *ngIf="postForm.getControl('title').invalid" {{  }}></mat-error> -->
+        <!-- <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput rows="6" name="content" placeholder="Post Content" [ngModel]="post?.content" required minlength="3" #content="ngModel"></textarea>
+        <mat-error *ngIf="content.invalid">Please enter post content.</mat-error>
+      </mat-form-field>
+      <button (click)="filePicker.click()" mat-stroked-button type="button" class="filePicker">Pick Image</button>
+      <button mat-raised-button color="primary" type="submit">Save Post</button>
+      <input type="file" #filePicker>
+  </form>
+</mat-card> -->
+<!-- Another option is two - way binding, which combines the setting and reading of a value [()] -->
+<!-- ngModel, an Angular directive, an instruction you place on an HTML element so angular knows WTD  -->
+<!-- Local refrence add a variable to any element you want #postInput -->
+<!-- Can be used here to pass data to onAddPost -->
+<!-- Event binding is an angular feature which lets us listen to events in a declarative way () -->
+<!-- String Interpolation, Property Binding, Event Binding, Two-Way Data Binding. -->
+<!-- String interpolation can refer to a property or method {{}} -->
+<!-- Property binding will target the property of the underlying object [] -->
+<!-- We will use a combination of string interpolation for simple text usually between opening and closing tags -->
+<!-- & Property binding always used directly on an element for outputting data in our template -->
+<!-- REMOVED TWO WAY BINDING METHOD -->
+<!-- <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput type="text" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Post Content</mat-label>
+    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="onAddPost()">Save Post</button> -->
+
+  <mat-card>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <!-- However first of all, you add a directive to your overall form, the form group directive. -->
+      <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+        <mat-form-field>
+            <input
+              matInput
+              type="text"
+              formControlName="title"
+              name="title"
+              placeholder="Post Title">
+            <mat-error *ngIf="form.get('title').invalid">Please enter a post title.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea
+              matInput
+              rows="6"
+              formControlName="content"
+              name="content"
+              placeholder="Post Content" ></textarea>
+            <mat-error *ngIf="form.get('content').invalid">Please enter post content.</mat-error>
+          </mat-form-field>
+          <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+            <img [src]="imagePreview" [alt]="form.value.title">
+          </div>
+          <button mat-raised-button color="primary" type="submit" class="mr-3">Save Post</button>
+          <!-- we can register any event on the image picker,
+          so on the file picker here, the change event. This will fire whenever the user changes the selected file, -->
+          <!-- Now I will call that and I will actually forward the native DOM event we're getting here and I can access this with $event, that's this special variable Angular gives me to access to event object an -->
+          <!-- event, well had. And this change event has an event object,
+          I can access it with $event and therefore, I can forward it to onImagePicked by passing it -->
+          <!-- as an argument.  -->
+          <button (click)="filePicker.click()" mat-stroked-button type="button" class="filePicker" >Pick Image</button>
+          <input type="file" #filePicker (change)="onImagePicked($event)">
+      </form>
+    </mat-card>

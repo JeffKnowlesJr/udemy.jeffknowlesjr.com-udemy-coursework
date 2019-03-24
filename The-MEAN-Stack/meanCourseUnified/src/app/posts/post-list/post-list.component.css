@@ -1,0 +1,42 @@
+/* Special selector which targets the component element itself */
+/* All elements by default are not treated as block level elements */
+:host {
+  display: block;
+  margin-top: 2rem;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+@media only screen and (min-width: 768px) {
+  .col-md-6 {
+    width: 50%;
+  }
+
+  .pl-md-5 {
+    padding-left: 3rem;
+  }
+}
+
+.img-fluid {
+  width: 100%;
+}
+
+.shadowed {
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.d-block {
+  display: block;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
