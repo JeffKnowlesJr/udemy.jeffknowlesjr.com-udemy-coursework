@@ -1,34 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
+// Angular imports
 import { NgModule } from '@angular/core';
-// NgModel is not included in the core and so it needs to be added here as formsmodule
-// FormsModule
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-// Added by Angular Material
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// Material Style imports
-import { MatInputModule,
-  MatCardModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatExpansionModule,
-  MatProgressSpinnerModule,
-  MatPaginatorModule,
-  MatDialogModule
-} from '@angular/material';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Component imports
 import { AppComponent } from './app.component';
 // Typescript requirement if you use something in another file
 // You need to tell TS where the code can be found
-import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
-import { PostListComponent } from './posts/post-list/post-list.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { ErrorComponent } from './error/error.component';
+// NgModel is not included in the core and so it needs to be added here as formsmodule
+// FormsModule
+// Added by Angular Material
 
+// Module Imports
+import { PostsModule } from './posts/posts.module';
+import { AngularMaterialModule } from './angular-material.module';
+import { AppRoutingModule } from './app-routing.module';
 
+// Middleware Imports
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 
@@ -36,28 +27,16 @@ import { ErrorInterceptor } from './error-interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    PostCreateComponent,
     HeaderComponent,
-    PostListComponent,
-    LoginComponent,
-    SignupComponent,
     ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatPaginatorModule,
-    MatExpansionModule,
     HttpClientModule,
-    MatProgressSpinnerModule,
-    ReactiveFormsModule,
-    FormsModule
+    AngularMaterialModule,
+    PostsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
