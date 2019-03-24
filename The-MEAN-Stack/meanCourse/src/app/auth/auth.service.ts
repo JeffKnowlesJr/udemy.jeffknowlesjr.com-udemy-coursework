@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 
-const BACKEND_URL = environment.apiUrl + "/user/";
+const BACKEND_URL = environment.apiUrl + '/user/';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
@@ -64,7 +64,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          console.log(expirationDate)
+          console.log(expirationDate);
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }

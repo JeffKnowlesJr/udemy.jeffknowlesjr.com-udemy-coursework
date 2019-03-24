@@ -6,7 +6,7 @@
 /out-tsc
 
 # secured files
-/the-mean-stack/meancourse/backend/app.js
+/the-mean-stack/meancourse/nodemon.json
 
 # dependencies
 /node_modules
