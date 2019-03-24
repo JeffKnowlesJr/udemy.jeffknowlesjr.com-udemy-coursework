@@ -6,7 +6,7 @@
 /out-tsc
 
 # secured docs
-app.js
+/backend/app.js
 
 # dependencies
 /node_modules
