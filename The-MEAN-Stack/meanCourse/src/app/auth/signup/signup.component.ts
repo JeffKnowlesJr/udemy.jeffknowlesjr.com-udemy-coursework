@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  isloading = false;
+  isLoading = false;
   private authStatusSub: Subscription;
 
   constructor(public authService: AuthService) { }
@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
       authStatus => {
-        this.isloading = false;
+        this.isLoading = false;
       }
     );
   }
@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (form.invalid) {
       return;
     }
-    this.isloading = true;
+    this.isLoading = true;
     this.authService.createUser(form.value.email, form.value.password);
   }
 
