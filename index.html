@@ -37,26 +37,18 @@
     </header>
 
     <!-- CERTS -->
-    <section class="sticky-top d-none d-md-block p-5">
+    <section class="p-5">
         <div class="container">
             <div class="row no-gutters">
-                <div class="col-md-6 col-lg-3 bg-info pointer">
-                    <img src="img/bootstrap4-cert.jpg" alt="" class="img-fluid pointer"  data-toggle="collapse" data-target="#bootstrap" aria-expanded="true">
+                <div class="col-12 col-md-6 col-lg-4 pointer">
+                    <img src="img/bootstrap4-cert.jpg" alt="Bootstrap projects" class="img-fluid pointer cert-item" data-toggle="collapse" data-target="#bootstrap" aria-expanded="true">
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 pointer">
+                    <img src="img/the-mean-stack-certification.jpg" alt="Bootstrap projects" class="img-fluid pointer cert-item" data-toggle="collapse" data-target="#mean" aria-expanded="true">
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- MOBILE NAV -->
-    <nav class="sticky-top d-sm-block d-md-none">
-        <div class="container navbar navbar-light bg-light">
-            <ul class="navbar-nav">
-                <li class="navbar-item">
-                    <a href="#" class="navbar-link" data-toggle="collapse" data-target="#bootstrap" aria-expanded="true">Bootstrap 4</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
     <!-- Project Area -->
     <section id="bootstrap" class="collapse show py-5 bg-primary">
@@ -144,6 +136,50 @@
             </div>
         </div>
     </section>
+    <section id="mean" class="collapse py-5 bg-danger">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-md-8 mx-auto">
+                    <a href="http://mean.jeffknowlesjr.com/" class="nav-link">
+                        <div class="card text-center text-light bg-danger border border-light">
+                            <div class="card-header">
+                                <h4>Guest Book</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">This project is a fully deployed guestbook web application. It was built with the MEAN stack, an acronym for MongoDB, Express, Angular, and Node. It demonstrates full create, read, update, and delete database access implemented with the Mongoose package. Image upload was added with the Multer package. Authentification was added with Bcrypt and JSON Web Token. The project is deployed on AWS Beanstalk and S3 servers.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="main-footer" class="bg-light text-dark p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 d-flex flex-column">
+                    <h5>Bootstrap</h5>
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/sandbox/">Sandbox</a>
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/looplab/">LoopLab</a>
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/mizuxe/">Muzuxe</a>
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/glozzom/">Glozzom</a>
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/blogen/">Blogen</a>
+                    <a href="http://udemy.jeffknowlesjr.com/bootstrap/portfoliogrid/">PortfolioGrid</a>
+                </div>
+                <div class="col-lg-4 d-flex flex-column">
+                    <h5>MEAN Stack</h5>
+                    <a href="http://mean.jeffknowlesjr.com/">MyMessages</a>
+                </div>
+                <div class="col-lg-4 d-flex flex-column">
+
+                </div>
+            </div>
+        </div>
+    </footer>
 
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
@@ -153,6 +189,9 @@
     crossorigin="anonymous"></script>
 
   <script>
+    $('.cert-item').click(function() {
+      $('.collapse').collapse('hide');
+    });
     // Get the current year for the copyright
     $('#year').text(new Date().getFullYear());
   </script>
