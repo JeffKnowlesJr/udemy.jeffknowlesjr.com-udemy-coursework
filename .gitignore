@@ -13,6 +13,12 @@
 /node_modules
 \node_modules
 
+# wordpress
+/wp-admin
+\wp-admin
+/wp-includes
+\wp-includes
+
 # profiling files
 chrome-profiler-events.json
 speed-measure-plugin.json

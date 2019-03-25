@@ -1,0 +1,78 @@
+[HTTP] Binding to address: :1080
+Creating API v1 with WebPath: 
+Creating API v2 with WebPath: 
+Got message in APIv2 websocket channel
+[APIv2] BROADCAST /api/v2/websocket
+Got message in APIv1 event stream
+Sending content: {
+  "ID": "1tfYdvs4jQjQIZLI4KO4MNNXhhn3ROzQaSHsP7RUu-s=@mailhog.example",
+  "From": {
+    "Relays": null,
+    "Mailbox": "nobody",
+    "Domain": "2e3077aff568",
+    "Params": ""
+  },
+  "To": [
+    {
+      "Relays": null,
+      "Mailbox": "mailhog",
+      "Domain": "flywheel.local",
+      "Params": ""
+    }
+  ],
+  "Content": {
+    "Headers": {
+      "Content-Type": [
+        "text/plain; charset=UTF-8"
+      ],
+      "Date": [
+        "Mon, 25 Mar 2019 21:39:41 +0000"
+      ],
+      "From": [
+        "WordPress \u003cwordpress@fictional-university.local\u003e"
+      ],
+      "MIME-Version": [
+        "1.0"
+      ],
+      "Message-ID": [
+        "\u003c8ccd2e8b9c91fe235e51cbffe082f66b@fictional-university.local\u003e"
+      ],
+      "Received": [
+        "from localhost by mailhog.example (MailHog)\r\n          id 1tfYdvs4jQjQIZLI4KO4MNNXhhn3ROzQaSHsP7RUu-s=@mailhog.example; Mon, 25 Mar 2019 21:39:41 +0000"
+      ],
+      "Return-Path": [
+        "\u003cnobody@2e3077aff568\u003e"
+      ],
+      "Subject": [
+        "New WordPress Site"
+      ],
+      "To": [
+        "jeffknowlesjr@gmail.com"
+      ],
+      "X-Mailer": [
+        "PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)"
+      ],
+      "X-PHP-Originating-Script": [
+        "0:class-phpmailer.php"
+      ]
+    },
+    "Body": "Your new WordPress site has been successfully set up at:\r\n\r\nhttp://fictional-university.local\r\n\r\nYou can log in to the administrator account with the following information:\r\n\r\nUsername: Jeff\r\nPassword: The password you chose during installation.\r\nLog in here: http://fictional-university.local/wp-login.php\r\n\r\nWe hope you enjoy your new site. Thanks!\r\n\r\n--The WordPress Team\r\nhttps://wordpress.org/\r\n",
+    "Size": 808,
+    "MIME": null
+  },
+  "Created": "2019-03-25T21:39:41.598287499Z",
+  "MIME": null,
+  "Raw": {
+    "From": "nobody@2e3077aff568",
+    "To": [
+      "mailhog@flywheel.local"
+    ],
+    "Data": "To: jeffknowlesjr@gmail.com\r\nSubject: New WordPress Site\r\nX-PHP-Originating-Script: 0:class-phpmailer.php\r\nDate: Mon, 25 Mar 2019 21:39:41 +0000\r\nFrom: WordPress \u003cwordpress@fictional-university.local\u003e\r\nMessage-ID: \u003c8ccd2e8b9c91fe235e51cbffe082f66b@fictional-university.local\u003e\r\nX-Mailer: PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\nYour new WordPress site has been successfully set up at:\r\n\r\nhttp://fictional-university.local\r\n\r\nYou can log in to the administrator account with the following information:\r\n\r\nUsername: Jeff\r\nPassword: The password you chose during installation.\r\nLog in here: http://fictional-university.local/wp-login.php\r\n\r\nWe hope you enjoy your new site. Thanks!\r\n\r\n--The WordPress Team\r\nhttps://wordpress.org/\r\n",
+    "Helo": "localhost"
+  }
+}
+
+[APIv1] BROADCAST /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
+[APIv1] KEEPALIVE /api/v1/events
