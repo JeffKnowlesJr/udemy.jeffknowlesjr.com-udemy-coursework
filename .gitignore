@@ -18,6 +18,8 @@
 \wp-admin
 /wp-includes
 \wp-includes
+/twentynineteen
+\twentynineteen
 
 # profiling files
 chrome-profiler-events.json
